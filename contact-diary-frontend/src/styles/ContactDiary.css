@@ -1,0 +1,228 @@
+/* ContactDiary.css */
+
+/* Page Background */
+body {
+  background-color: #f4f6f9;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Main container */
+.contact-diary-container {
+  max-width: 900px;
+  margin: 40px auto;
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 30px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Heading */
+.contact-diary-title {
+  text-align: center;
+  font-weight: 700;
+  color: #007bff;
+  margin-bottom: 30px;
+}
+
+/* Contact Form */
+
+/* Contact Form Row */
+/* Contact Form Row */
+.contact-form {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 25px;
+}
+
+.contact-form input {
+  flex: 1;
+  padding: 14px 16px; /* bigger input height */
+  font-size: 16px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+.contact-form input:focus {
+  border-color: #007bff;
+  outline: none;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
+}
+
+.contact-form button {
+  padding: 14px 28px; /* bigger button */
+  font-size: 16px;
+  border-radius: 8px;
+  font-weight: 600;
+  background-color: #28a745;
+  border: none;
+  color: white;
+  transition: 0.3s;
+}
+
+.contact-form button:hover {
+  background-color: #218838;
+}
+
+
+/* Table Styling */
+.contact-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.contact-table th {
+  background: #007bff;
+  color: white;
+  padding: 12px;
+  text-align: left;
+}
+
+.contact-table td {
+  padding: 10px;
+  border-bottom: 1px solid #eee;
+}
+
+.contact-table tr:hover {
+  background: #f9f9f9;
+}
+
+.action-btn {
+  border: none;
+  border-radius: 4px;
+  padding: 6px 10px;
+  margin: 0 3px;
+  cursor: pointer;
+  color: white;
+}
+
+.edit-btn {
+  background-color: #ffc107;
+}
+
+.delete-btn {
+  background-color: #dc3545;
+}
+
+.action-btn:hover {
+  opacity: 0.85;
+}
+
+/* ---------- Auth Pages (Login & Signup) ---------- */
+
+.auth-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #007bff, #6c63ff);
+}
+
+.auth-card {
+  background: white;
+  padding: 40px 30px;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+}
+
+.auth-card h2 {
+  font-weight: 700;
+  color: #007bff;
+  margin-bottom: 20px;
+}
+
+.auth-card input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+.auth-card input:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+.auth-card button {
+  width: 100%;
+  padding: 10px;
+  background: #28a745;
+  border: none;
+  border-radius: 6px;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.auth-card button:hover {
+  background: #218838;
+}
+
+.auth-link {
+  margin-top: 15px;
+  display: block;
+  font-size: 14px;
+  color: #007bff;
+  text-decoration: none;
+}
+
+.auth-link:hover {
+  text-decoration: underline;
+}
+
+/* Contact Cards */
+.contact-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.contact-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: white;
+  padding: 15px 20px;
+  border-radius: 10px;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+  transition: 0.2s;
+}
+
+.contact-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 12px rgba(0, 0, 0, 0.15);
+}
+
+.contact-card h5 {
+  margin: 0 0 5px;
+  color: #333;
+}
+
+.contact-card p {
+  margin: 0;
+  font-size: 14px;
+  color: #555;
+}
+
+.btn-logout {
+  background: white;
+  color: #dc3545;
+  border: 2px solid #dc3545;
+  font-weight: 600;
+  padding: 8px 18px;
+  border-radius: 8px;
+  transition: 0.3s;
+}
+
+.btn-logout:hover {
+  background: #dc3545;
+  color: white;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(220, 53, 69, 0.3);
+}

@@ -1,61 +1,55 @@
-import React from 'react';
-import { FaTrash, FaEdit } from 'react-icons/fa';
-import axios from 'axios';
+import React from "react";
 
 function ContactList({ contacts, setContacts, setEditingContact }) {
-  
-  // Delete a contact
-  const deleteContact = async (id) => {
+  const handleDelete = async (id) => {
+    if (!window.confirm("Are you sure you want to delete this contact?")) return;
+
     try {
-      await axios.delete(`http://localhost:5000/api/contacts/${id}`);
-      setContacts(prev => prev.filter(contact => contact._id !== id));
-    } catch (err) {
-      console.error(err);
+      const token = localStorage.getItem("token");
+      const res = await fetch(`http://localhost:5000/api/contacts/${id}`, {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      if (res.ok) {
+        setContacts((prev) => prev.filter((c) => c._id !== id));
+      }
+    } catch (error) {
+      console.error(error);
+      alert("Failed to delete contact");
     }
   };
 
   return (
-    <div className="mt-4">
-      <h3>Saved Contacts</h3>
-      <table className="table table-bordered mt-3">
-        <thead className="table-dark">
-          <tr>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Phone</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {contacts.length === 0 ? (
-            <tr>
-              <td colSpan="4" className="text-center">No contacts found</td>
-            </tr>
-          ) : (
-            contacts.map(contact => (
-              <tr key={contact._id}>
-                <td>{contact.name}</td>
-                <td>{contact.email}</td>
-                <td>{contact.phone}</td>
-                <td>
-                  <button 
-                    className="btn btn-warning btn-sm me-2"
-                    onClick={() => setEditingContact(contact)}
-                  >
-                    <FaEdit />
-                  </button>
-                  <button 
-                    className="btn btn-danger btn-sm"
-                    onClick={() => deleteContact(contact._id)}
-                  >
-                    <FaTrash />
-                  </button>
-                </td>
-              </tr>
-            ))
-          )}
-        </tbody>
-      </table>
+    <div className="contact-list">
+      {contacts.length === 0 ? (
+        <p className="text-center text-muted">No contacts added yet.</p>
+      ) : (
+        contacts.map((contact) => (
+          <div className="contact-card" key={contact._id}>
+            <div>
+              <h5>{contact.name}</h5>
+              <p>Email: {contact.email}</p>
+              <p>Phone: {contact.phone}</p>
+            </div>
+            <div>
+              <button
+                className="btn btn-sm btn-primary me-2"
+                onClick={() => setEditingContact(contact)}
+              >
+                Edit
+              </button>
+              <button
+                className="btn btn-sm btn-danger"
+                onClick={() => handleDelete(contact._id)}
+              >
+                Delete
+              </button>
+            </div>
+          </div>
+        ))
+      )}
     </div>
   );
 }

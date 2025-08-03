@@ -1,92 +1,81 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import API from "../api";
 
 function ContactForm({ setContacts, editingContact, setEditingContact }) {
-  const [formData, setFormData] = useState({ name: '', email: '', phone: '' });
+  const [formData, setFormData] = useState({ name: "", email: "", phone: "" });
 
-  // When editingContact changes, fill the form
   useEffect(() => {
     if (editingContact) {
       setFormData({
         name: editingContact.name,
         email: editingContact.email,
-        phone: editingContact.phone
+        phone: editingContact.phone,
       });
+    } else {
+      setFormData({ name: "", email: "", phone: "" });
     }
   }, [editingContact]);
 
-  // Handle input change
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  // Submit form for Add or Update
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       if (editingContact) {
-        // Update existing contact
-        const res = await axios.put(
-          `http://localhost:5000/api/contacts/${editingContact._id}`,
-          formData
+        const res = await API.put(`/contacts/${editingContact._id}`, formData, {
+          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+        });
+        setContacts((prev) =>
+          prev.map((c) => (c._id === editingContact._id ? res.data : c))
         );
-        setContacts(prev => prev.map(contact => 
-          contact._id === editingContact._id ? res.data : contact
-        ));
         setEditingContact(null);
       } else {
-        // Add new contact
-        const res = await axios.post('http://localhost:5000/api/contacts', formData);
-        setContacts(prev => [...prev, res.data]);
+        const res = await API.post("/contacts", formData, {
+          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+        });
+        setContacts((prev) => [...prev, res.data]);
       }
-      setFormData({ name: '', email: '', phone: '' });
+      setFormData({ name: "", email: "", phone: "" });
     } catch (err) {
-      console.error(err);
+      alert(err.response?.data?.message || "Operation failed");
     }
   };
 
   return (
-    <form className="mb-4" onSubmit={handleSubmit}>
-      <div className="row g-3">
-        <div className="col-md-4">
-          <input
-            type="text"
-            name="name"
-            className="form-control"
-            placeholder="Name"
-            value={formData.name}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div className="col-md-4">
-          <input
-            type="email"
-            name="email"
-            className="form-control"
-            placeholder="Email"
-            value={formData.email}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div className="col-md-3">
-          <input
-            type="text"
-            name="phone"
-            className="form-control"
-            placeholder="Phone"
-            value={formData.phone}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div className="col-md-1">
-          <button type="submit" className="btn btn-primary w-100">
-            {editingContact ? 'Update' : 'Add'}
-          </button>
-        </div>
-      </div>
+    <form className="contact-form d-flex gap-2 mb-3" onSubmit={handleSubmit}>
+      <input
+        type="text"
+        name="name"
+        className="form-control"
+        placeholder="Name"
+        value={formData.name}
+        onChange={handleChange}
+        required
+      />
+      <input
+        type="email"
+        name="email"
+        className="form-control"
+        placeholder="Email"
+        value={formData.email}
+        onChange={handleChange}
+        required
+      />
+      <input
+        type="text"
+        name="phone"
+        className="form-control"
+        placeholder="Phone"
+        value={formData.phone}
+        onChange={handleChange}
+        required
+      />
+      <button type="submit" className="btn btn-success px-4">
+        {editingContact ? "Update" : "Add"}
+      </button>
     </form>
   );
 }
