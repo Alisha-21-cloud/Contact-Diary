@@ -1,0 +1,22 @@
+const express = require('express');
+const cors = require('cors');
+const connectDB = require('./config/db');
+require('dotenv').config();
+
+const app = express();
+app.use(cors());
+app.use(express.json());
+
+// Connect to MongoDB
+connectDB();
+
+// Test route
+app.get('/', (req, res) => {
+  res.send('Contact Diary API is running...');
+});
+
+// Routes
+app.use('/api/contacts', require('./routes/contactRoutes'));
+
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
