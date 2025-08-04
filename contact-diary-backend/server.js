@@ -1,24 +1,20 @@
 const express = require('express');
 const cors = require("cors");
-require('dotenv').config();
 const connectDB = require('./config/db');
+require('dotenv').config();
 
-// Initialize app
 const app = express();
 
-// Enable CORS
-app.use(
-  cors({
+// Correct CORS setup
+app.use(cors({
     origin: [
-      "http://localhost:3000",
-      "https://contact-diary-frontend.netlify.app"
+        "http://localhost:3000",
+        "https://contact-diary-frontend.netlify.app"
     ],
     methods: ["GET", "POST", "PUT", "DELETE"],
     allowedHeaders: ["Content-Type", "Authorization"]
-  })
-);
+}));
 
-// Middleware
 app.use(express.json());
 
 // Connect to MongoDB
@@ -34,6 +30,5 @@ app.get('/', (req, res) => {
 app.use('/api/auth', require('./routes/authRoutes'));
 app.use('/api/contacts', require('./routes/contactRoutes'));
 
-// Start server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
