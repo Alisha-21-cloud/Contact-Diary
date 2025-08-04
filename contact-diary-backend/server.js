@@ -1,6 +1,12 @@
 const express = require('express');
 const cors = require("cors");
+require('dotenv').config();
+const connectDB = require('./config/db');
 
+// Initialize app
+const app = express();
+
+// Enable CORS
 app.use(
   cors({
     origin: [
@@ -12,18 +18,11 @@ app.use(
   })
 );
 
-const connectDB = require('./config/db');
-require('dotenv').config();
-
-const app = express();
-app.use(cors());
+// Middleware
 app.use(express.json());
-app.use('/api/auth', require('./routes/authRoutes'));
-
 
 // Connect to MongoDB
 console.log("MONGO_URI:", process.env.MONGO_URI || "Not Found");
-
 connectDB();
 
 // Test route
@@ -32,7 +31,9 @@ app.get('/', (req, res) => {
 });
 
 // Routes
+app.use('/api/auth', require('./routes/authRoutes'));
 app.use('/api/contacts', require('./routes/contactRoutes'));
 
+// Start server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
