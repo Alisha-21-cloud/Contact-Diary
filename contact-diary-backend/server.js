@@ -10,6 +10,8 @@ app.use('/api/auth', require('./routes/authRoutes'));
 
 
 // Connect to MongoDB
+console.log("MONGO_URI:", process.env.MONGO_URI || "Not Found");
+
 connectDB();
 
 // Test route
