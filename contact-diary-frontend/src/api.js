@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const API = axios.create({
-  baseURL: 'http://localhost:5000/api', // backend URL
+  baseURL: "https://contact-diary-backend.onrender.com/api", // backend URL
 });
 
 // Automatically add JWT token if available
