@@ -1,4 +1,17 @@
 const express = require('express');
+const cors = require("cors");
+
+app.use(
+  cors({
+    origin: [
+      "http://localhost:3000",
+      "https://contact-diary-frontend.netlify.app"
+    ],
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    allowedHeaders: ["Content-Type", "Authorization"]
+  })
+);
+
 const cors = require('cors');
 const connectDB = require('./config/db');
 require('dotenv').config();
