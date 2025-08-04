@@ -9,6 +9,7 @@ body {
 /* Main container */
 .contact-diary-container {
   max-width: 900px;
+  width:95%;
   margin: 40px auto;
   background: #ffffff;
   border-radius: 12px;
@@ -32,6 +33,7 @@ body {
   display: flex;
   gap: 15px;
   margin-bottom: 25px;
+  flex-wrap: wrap;
 }
 
 .contact-form input {
@@ -48,7 +50,19 @@ body {
   box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
 }
 
+@media screen and (max-width: 600px) {
+  .contact-form {
+    flex-direction: column; /* ✅ stack inputs and button */
+  }
+
+  .contact-form input,
+  .contact-form button {
+    width: 100%;
+  }
+}
+
 .contact-form button {
+  flex:1;
   padding: 14px 28px; /* bigger button */
   font-size: 16px;
   border-radius: 8px;
@@ -63,7 +77,25 @@ body {
   background-color: #218838;
 }
 
+@media screen and (max-width: 600px) {
+  .contact-card {
+    flex-direction: column; /* ✅ stack name and actions vertically */
+    align-items: flex-start;
+    gap: 10px;
+  }
 
+  .contact-card h5 {
+    font-size: 16px;
+  }
+
+  .contact-card p {
+    font-size: 13px;
+  }
+
+  .action-btn {
+    padding: 5px 8px;
+  }
+}
 /* Table Styling */
 .contact-table {
   width: 100%;
@@ -226,3 +258,5 @@ body {
   transform: translateY(-1px);
   box-shadow: 0 2px 8px rgba(220, 53, 69, 0.3);
 }
+
+
