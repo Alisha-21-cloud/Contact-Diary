@@ -1,4 +1,5 @@
 import React from "react";
+import API from "../api";
 
 function ContactList({ contacts, setContacts, setEditingContact }) {
   const handleDelete = async (id) => {
@@ -6,15 +7,10 @@ function ContactList({ contacts, setContacts, setEditingContact }) {
 
     try {
       const token = localStorage.getItem("token");
-      const res = await fetch(`http://localhost:5000/api/contacts/${id}`, {
-        method: "DELETE",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+      await API.delete(`/contacts/${id}`, {
+        headers: { Authorization: `Bearer ${token}` }, // if backend requires auth
       });
-      if (res.ok) {
-        setContacts((prev) => prev.filter((c) => c._id !== id));
-      }
+      setContacts((prev) => prev.filter((c) => c._id !== id));
     } catch (error) {
       console.error(error);
       alert("Failed to delete contact");
